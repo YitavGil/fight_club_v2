@@ -20,12 +20,7 @@ builder.Services.AddIdentityServices(builder.Configuration);
 var app = builder.Build();
 Console.WriteLine($"Current environment: {app.Environment.EnvironmentName}");
 // Configure the HTTP request pipeline.
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
-}
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
 app.UseAuthentication();
